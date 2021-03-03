@@ -13,8 +13,6 @@ mongoose
 
 const app = express()
 
-let users = []
-
 app.use(express.json()) // add middleware for json data
 
 /*
@@ -45,10 +43,9 @@ app.get('/api/users/:id', async (req, res) => {
   res.json(await User.findOne({ id }))
 })
 
-app.delete('/api/users/:id', (req, res) => {
+app.delete('/api/users/:id', async (req, res) => {
   const { id } = req.params
-  users = users.filter(user => user.id !== id)
-  res.json(users)
+  res.json(await User.deleteOne({ id }))
 })
 
 app.post('/api/users', async (req, res) => {
