@@ -3,9 +3,24 @@ const { v4 } = require('uuid')
 
 const app = express()
 
-const users = []
+let users = []
 
 app.use(express.json()) // add middleware for json data
+
+/*
+
+req -> express -> middleware -> middleware -> middleware
+
+middleware = (req, res, next) => { }
+
+app.use((req, res, next) => {
+  if (req.method === 'GET' && req.url === '/api/users') {
+    res.json(users)
+  } else {
+    next()
+  }
+})
+*/
 
 app.get('/api/users', (req, res) => {
   res.json(users)
@@ -14,6 +29,12 @@ app.get('/api/users', (req, res) => {
 app.get('/api/users/:id', (req, res) => {
   const { id } = req.params
   res.json(users.find(user => user.id === id))
+})
+
+app.delete('/api/users/:id', (req, res) => {
+  const { id } = req.params
+  users = users.filter(user => user.id !== id)
+  res.json(users)
 })
 
 app.post('/api/users', (req, res) => {
