@@ -2,12 +2,18 @@ const express = require('express')
 
 const app = express()
 
+const users = []
+
+app.use(express.json()) // add middleware for json data
+
 app.get('/api/users', (req, res) => {
-  res.json([{ name: 'Melissa', role: 'student' }])
+  res.json(users)
 })
 
 app.post('/api/users', (req, res) => {
-  res.json({ message: 'This was a post request' })
+  // exercise: add id (via uuid) for each new user
+  users.push(req.body)
+  res.json(req.body)
 })
 
 app.get('/api/cards', (req, res) => {
