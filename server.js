@@ -1,5 +1,4 @@
 const express = require('express')
-const { v4 } = require('uuid')
 const mongoose = require('mongoose')
 const User = require('./models/User')
 
