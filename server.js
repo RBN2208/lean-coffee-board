@@ -2,9 +2,12 @@ const express = require('express')
 
 const app = express()
 
-app.use((req, res) => {
-    console.log(req.method, req.url)
-    res.end('Hello World')
+app.use('/api/users', (req, res) => {
+    res.end('Users')
+})
+
+app.use('/api/cards', (req, res) => {
+    res.end('Cards')
 })
 
 app.listen(3000, () => {
