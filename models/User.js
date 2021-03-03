@@ -5,5 +5,7 @@ const userSchema = new mongoose.Schema({
     role: String,
 }, {versionKey: false})
     
+
 module.exports = mongoose.model('User', userSchema)
+
 
