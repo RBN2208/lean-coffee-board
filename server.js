@@ -44,7 +44,9 @@ app.get('/api/cards/:id', async (req, res, next) => {
 
 app.patch('/api/cards/:id', async (req, res, next) => {
   const { id } = req.params
-  res.json(await Card.findByIdAndUpdate(id, req.body).catch(next))
+  res.json(
+    await Card.findByIdAndUpdate(id, req.body, { new: true }).catch(next)
+  )
 })
 
 app.delete('/api/cards/:id', async (req, res, next) => {
