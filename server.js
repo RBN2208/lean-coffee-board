@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const Card = require('./models/Card')
 const User = require('./models/User')
 
 mongoose
@@ -14,26 +15,7 @@ const app = express()
 
 app.use(express.json()) // add middleware for json data
 
-/*
-
-req -> express -> middleware -> middleware -> middleware
-
-middleware = (req, res, next) => { }
-
-app.use((req, res, next) => {
-  if (req.method === 'GET' && req.url === '/api/users') {
-    res.json(users)
-  } else {
-    next()
-  }
-})
-*/
-
 app.get('/api/users', async (req, res) => {
-  // with then:
-  // User.find().then(users => res.json(users))
-
-  // with async/await
   res.json(await User.find())
 })
 
@@ -51,8 +33,22 @@ app.post('/api/users', async (req, res) => {
   res.json(await User.create(req.body))
 })
 
-app.get('/api/cards', (req, res) => {
-  res.json([{ title: 'First card' }])
+app.get('/api/cards', async (req, res) => {
+  res.json(await Card.find().populate('author'))
+})
+
+app.get('/api/cards/:id', async (req, res) => {
+  const { id } = req.params
+  res.json(await Card.findOne({ id }).populate('author'))
+})
+
+app.delete('/api/cards/:id', async (req, res) => {
+  const { id } = req.params
+  res.json(await Card.deleteOne({ id }))
+})
+
+app.post('/api/cards', async (req, res) => {
+  res.json(await Card.create(req.body))
 })
 
 app.listen(3000, () => {
