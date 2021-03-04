@@ -28,7 +28,12 @@ router.delete('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  res.json(await Card.create(req.body).catch(next))
+  res.json(
+    await (await Card.create(req.body))
+      .populate('author')
+      .execPopulate()
+      .catch(next)
+  )
 })
 
 module.exports = router

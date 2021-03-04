@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm-run-all --parallel server client",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd client && npm install"
   },
   "keywords": [],
   "author": "Jeremias Erbs <jerry@badabam.de> (https://badabam.de/)",
@@ -13,6 +16,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.11.18",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5"
   }
 }
