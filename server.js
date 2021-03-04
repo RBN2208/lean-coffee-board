@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Card = require('./models/Card')
-const User = require('./models/User')
 
 mongoose
   .connect('mongodb://localhost/lean-coffee-board', {
@@ -15,23 +14,7 @@ const app = express()
 
 app.use(express.json()) // add middleware for json data
 
-app.get('/api/users', async (req, res, next) => {
-  res.json(await User.find().catch(next))
-})
-
-app.get('/api/users/:id', async (req, res, next) => {
-  const { id } = req.params
-  res.json(await User.findById(id).catch(next))
-})
-
-app.delete('/api/users/:id', async (req, res, next) => {
-  const { id } = req.params
-  res.json(await User.findByIdAndDelete(id).catch(next))
-})
-
-app.post('/api/users', async (req, res, next) => {
-  res.json(await User.create(req.body).catch(next))
-})
+app.use('/api/users', require('./routes/users'))
 
 app.get('/api/cards', async (req, res, next) => {
   res.json(await Card.find().populate('author').catch(next))
