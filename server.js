@@ -13,53 +13,56 @@ const app = express()
 
 app.use(express.json())
 
-app.get('/api/users', async (req, res) => {
-    res.json(await User.find())
+app.get('/api/users', async (req, res, next) => {
+    res.json(await User.find().catch(next))
 })
 
-app.get('/api/users/:id', async (req, res) => {
+app.get('/api/users/:id', async (req, res, next) => {
     const { id } = req.params
-    res.json(await User.findOne({id: id}))
+    res.json(await User.findById(id).catch(next))
 })
 
-app.delete('/api/users/:id', async (req, res) => {
+app.delete('/api/users/:id', async (req, res, next) => {
     const {id} = req.params
-    res.json(await User.deleteOne({ id }))
+    res.json(await User.findByIdAndDelete(id).catch(next))
 })
 
-app.post('/api/users', async (req, res) => {
-    res.json(await User.create(req.body))
+app.post('/api/users', async (req, res, next) => {
+    res.json(await User.create(req.body).catch(next))
 })
 
 //
+//
+//
 
-app.get('/api/cards', async (req, res) => {
-    res.json(await Card.find())
+app.get('/api/cards', async (req, res, next) => {
+    res.json(await Card.find().populate('author').catch(next))
 })
 
-app.get('/api/cards/:id', async (req, res) => {
+app.get('/api/cards/:id', async (req, res, next) => {
     const { id } = req.params
-    res.json(await Card.findOne({id: id}))
+    res.json(await Card.findById(id).populate('author').catch(next))
 })
 
-app.delete('/api/cards/:id', async (req, res) => {
+app.patch('/api/cards/:id', async (req, res, next) => {
     const { id } = req.params
-    res.json(await Card.deleteOne({ id }))
+    res.json(await Card.findByIdAndUpdate(id, req.body).catch(next))
 })
 
-app.post('/api/cards', async (req, res) => {
+app.delete('/api/cards/:id', async (req, res, next) => {
     const { id } = req.params
-    User.findOne({ id }).populate('author')
-    res.json(await Card.create(req.body))
+    res.json(await Card.findByIdAndDelete(id).catch(next))
+})
+
+app.post('/api/cards', async (req, res, next) => {
+    res.json(await Card.create(req.body).catch(next))
+})
+
+app.use((err,req,res,next) => {
+    console.log(err.message)
+    res.json({error: err.message})
 })
 
 app.listen(3000, () => {
     console.log('Server start at https://localhost:3000')
 })
-
-function getUserWithPosts(name){
-    return User.findOne({ name: name })
-      .populate('author').exec((err, author) => {
-        console.log("Populated User " + author);
-      })
-}
