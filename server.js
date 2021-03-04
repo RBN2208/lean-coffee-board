@@ -25,10 +25,14 @@ app.get('/api/cards/:id', async (req, res, next) => {
   res.json(await Card.findById(id).populate('author').catch(next))
 })
 
-app.patch('/api/cards/:id', async (req, res, next) => {
+app.patch('/api/cards/:id/vote', async (req, res, next) => {
   const { id } = req.params
   res.json(
-    await Card.findByIdAndUpdate(id, req.body, { new: true }).catch(next)
+    await Card.findByIdAndUpdate(
+      id,
+      { $inc: { votes: 1 } },
+      { new: true }
+    ).catch(next)
   )
 })
 
