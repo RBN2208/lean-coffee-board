@@ -20,7 +20,7 @@ export default createGlobalStyle`
     &:focus {
       outline: none;
       border-color: transparent;
-      box-shadow: 0 0 4px 1px deeppink;
+      box-shadow: 0 0 4px 1px plum;
     }
   }
 

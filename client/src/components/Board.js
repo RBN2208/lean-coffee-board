@@ -17,9 +17,9 @@ export default function Board({ user, onLogout }) {
       <Logout onClick={onLogout} />
       <CardGrid>
         {cards.map(card => (
-          <Card key={card._id}>
+          <Card key={card._id} authorColor={card.author?.color}>
             {card.text || <em>No comment</em>}
-            <footer>{card.author.name}</footer>
+            <div>{card.author?.name}</div>
           </Card>
         ))}
         <Spacer />
@@ -56,14 +56,14 @@ const Logout = styled.small.attrs(() => ({ children: 'Logout' }))`
   color: #666;
 
   &:hover {
-    color: hotpink;
+    color: plum;
   }
 `
 
 const CardGrid = styled.ul`
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 400px));
   grid-auto-rows: 100px;
   margin: 0;
   padding: 20px;
@@ -75,14 +75,13 @@ const Card = styled.li`
   align-content: space-between;
   border-radius: 4px;
   padding: 20px 20px 10px 20px;
-  color: #555;
   background: linear-gradient(#eee, #efefef);
 
-  footer {
+  div {
     text-transform: uppercase;
     font-size: 0.8em;
     text-align: end;
-    color: hotpink;
+    color: ${p => p.authorColor};
   }
 `
 

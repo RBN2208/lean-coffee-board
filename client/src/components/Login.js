@@ -34,8 +34,10 @@ const Form = styled.form`
   gap: 20px;
   padding: 40px;
   border-radius: 12px;
-  border: 2px dashed hotpink;
+  border: 2px dashed plum;
   box-shadow: 0 4px 8px #0003;
+  max-width: 360px;
+  width: 100%;
 
   label {
     display: grid;

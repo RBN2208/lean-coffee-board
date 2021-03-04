@@ -33,7 +33,7 @@ function App() {
 
 const Grid = styled.div`
   display: grid;
-  ${props => props.loggedOut && 'place-content: center'};
+  ${props => props.loggedOut && 'place-items: center'};
   height: 100vh;
 `
 
