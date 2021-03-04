@@ -19,6 +19,7 @@ export default createGlobalStyle`
 
     &:focus {
       outline: none;
+      border-color: transparent;
       box-shadow: 0 0 4px 1px deeppink;
     }
   }
@@ -30,7 +31,7 @@ export default createGlobalStyle`
 
   button {
     border-radius: 4px;
-    background: white;
-    border: 1px solid #555;
+    background: #ddd;
+    border: none;
   }
 `

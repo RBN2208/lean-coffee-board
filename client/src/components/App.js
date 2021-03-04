@@ -7,19 +7,23 @@ import Board from './Board'
 import Login from './Login'
 
 function App() {
-  const [user, setUser] = useState(loadFromLocal('user') ?? '')
+  const [user, setUser] = useState(loadFromLocal('user'))
   const [error, setError] = useState(null)
 
   useEffect(() => {
     saveToLocal('user', user)
   }, [user])
 
-  return error ? (
-    error
-  ) : (
-    <Grid loggedOut={!user}>
-      {user ? <Board user={user} /> : <Login onSubmit={createUser} />}
-    </Grid>
+  return (
+    error || (
+      <Grid loggedOut={!user}>
+        {user ? (
+          <Board user={user} onLogout={() => setUser(null)} />
+        ) : (
+          <Login onSubmit={createUser} />
+        )}
+      </Grid>
+    )
   )
 
   function createUser(name) {

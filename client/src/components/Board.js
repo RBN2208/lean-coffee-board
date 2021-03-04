@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import saveToLocal from '../lib/saveToLocal'
 import getCards from '../services/getCards'
 import postCard from '../services/postCard'
 import Button from './Button'
 
-export default function Board({ user }) {
+export default function Board({ user, onLogout }) {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
@@ -13,10 +14,11 @@ export default function Board({ user }) {
 
   return (
     <BoardWrapper>
+      <Logout onClick={onLogout} />
       <CardGrid>
         {cards.map(card => (
           <Card key={card._id}>
-            {card.text}
+            {card.text || <em>No comment</em>}
             <footer>{card.author.name}</footer>
           </Card>
         ))}
@@ -43,8 +45,19 @@ export default function Board({ user }) {
 
 const BoardWrapper = styled.section`
   display: grid;
-  grid-template-rows: auto 48px;
+  grid-template-rows: min-content auto 48px;
   height: inherit;
+`
+
+const Logout = styled.small.attrs(() => ({ children: 'Logout' }))`
+  cursor: default;
+  text-align: right;
+  padding: 8px 20px 0;
+  color: #666;
+
+  &:hover {
+    color: hotpink;
+  }
 `
 
 const CardGrid = styled.ul`
