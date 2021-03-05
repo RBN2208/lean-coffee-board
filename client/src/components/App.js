@@ -4,7 +4,8 @@ import getUsers from '../services/getUsers'
 import getCards from '../services/getCards'
 import createCard from '../services/createCard'
 import Form from './Form'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
+import Header from './Header'
 
 function App() {
   const [users, setUsers] = useState([])
@@ -27,22 +28,40 @@ function App() {
   }
 
   return (
-    <AppGrid>
-      <Form onSubmitClick={handleSubmit} />
-      <div>
+    <AppContainer>
+      <HeaderContainer>
+        <Header>The new Lean Coffee Board!</Header>
+      </HeaderContainer>
+      <Content>
         {cards.map(({ text, author }) => (
           <LeanCards text={text} author={author} />
         ))}
+      </Content>
+      <div>
+        <Form onSubmitClick={handleSubmit} />
       </div>
-    </AppGrid>
+    </AppContainer>
   )
 }
 
 export default App
 
-const AppGrid = styled.div`
-  margin: 0;
+const AppContainer = styled.div`
+  height: 100vh;
   display: grid;
-  grid-template-columns: max-content;
+  grid-template-rows: 75px auto 70px;
+  margin: 0;
   background-color: whitesmoke;
+`
+const HeaderContainer = styled.div`
+  display: flex;
+`
+
+const Content = styled.main`
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-flow: wrap;
+  align-content: flex-start;
+  overflow-y: scroll;
 `

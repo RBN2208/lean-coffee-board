@@ -1,17 +1,34 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export default function LeanCards({ text, author }) {
   return (
     <>
-      <Textbox>
+      <CardBox>
         {text}
-        {author.name}
-      </Textbox>
+        <AuthorBox>{author.name}</AuthorBox>
+      </CardBox>
     </>
   )
 }
 
-const Textbox = styled.div`
-  padding: 20px;
-  background-color: cornflowerblue;
+const CardBox = styled.div`
+  width: 200px;
+  height: 120px;
+  padding: 10px;
+  background-color: ghostwhite;
+  position: relative;
+  filter: drop-shadow(0 0 10px gray);
+  font-family: Arial, Helvetica, sans-serif;
+`
+
+const AuthorBox = styled.div`
+  background-color: grey;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 210px;
+  color: white;
+  padding: 5px;
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
 `
