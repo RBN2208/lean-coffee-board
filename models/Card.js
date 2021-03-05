@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema(
   {
-    text: String,
+    text: {
+      type: String,
+      required: true,
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
