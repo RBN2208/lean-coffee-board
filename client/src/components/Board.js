@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import saveToLocal from '../lib/saveToLocal'
+import deleteCard from '../services/deleteCard'
 import getCards from '../services/getCards'
 import postCard from '../services/postCard'
 import Button from './Button'
+import Card from './Card'
 
 export default function Board({ user, onLogout }) {
   const [cards, setCards] = useState([])
@@ -17,10 +18,13 @@ export default function Board({ user, onLogout }) {
       <Logout onClick={onLogout} />
       <CardGrid>
         {cards.map(card => (
-          <Card key={card._id} authorColor={card.author?.color}>
-            {card.text || <em>No comment</em>}
-            <div>{card.author?.name}</div>
-          </Card>
+          <Card
+            key={card._id}
+            authorColor={card.author?.color}
+            text={card.text}
+            name={card.author?.name}
+            onDelete={() => handleDelete(card._id)}
+          />
         ))}
         <Spacer />
       </CardGrid>
@@ -40,6 +44,13 @@ export default function Board({ user, onLogout }) {
     )
     form.reset()
     text.focus()
+  }
+
+  function handleDelete(id) {
+    deleteCard(id).then(() => {
+      const updatedCards = cards.filter(card => card._id !== id)
+      setCards([...updatedCards])
+    })
   }
 }
 
@@ -68,21 +79,6 @@ const CardGrid = styled.ul`
   margin: 0;
   padding: 20px;
   overflow-y: auto;
-`
-
-const Card = styled.li`
-  display: grid;
-  align-content: space-between;
-  border-radius: 4px;
-  padding: 20px 20px 10px 20px;
-  background: linear-gradient(#eee, #efefef);
-
-  div {
-    text-transform: uppercase;
-    font-size: 0.8em;
-    text-align: end;
-    color: ${p => p.authorColor};
-  }
 `
 
 const Spacer = styled.li.attrs(() => ({ ariaHidden: 'true' }))`
