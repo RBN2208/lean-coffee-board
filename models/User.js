@@ -1,11 +1,18 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
-    name: String,
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      unique: true,
+    },
+    color: {
+      type: String,
+      default: () => `hsl(${Math.round(Math.random() * 360)}, 70%, 60%)`,
+    },
     role: String,
-}, {versionKey: false})
-    
+  },
+  { versionKey: false }
+)
 
 module.exports = mongoose.model('User', userSchema)
-
-

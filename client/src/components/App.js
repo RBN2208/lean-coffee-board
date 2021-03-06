@@ -1,67 +1,40 @@
-import { useState, useEffect } from 'react'
-import LeanCards from './LeanCards'
-import getUsers from '../services/getUsers'
-import getCards from '../services/getCards'
-import createCard from '../services/createCard'
-import Form from './Form'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import Header from './Header'
+import loadFromLocal from '../lib/loadFromLocal'
+import saveToLocal from '../lib/saveToLocal'
+import postUser from '../services/postUser'
+import Board from './Board'
+import Login from './Login'
 
 function App() {
-  const [users, setUsers] = useState([])
-  const [cards, setCards] = useState([])
+  const [user, setUser] = useState(loadFromLocal('user'))
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    getUsers().then(data => setUsers([...data]))
-  }, [])
-  useEffect(() => {
-    getCards().then(data => setCards([...data]))
-  }, [])
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    const form = event.target
-    const { text, author } = form.elements
-    createCard({ text: text.value, author: author.value }).then(() => {
-      getCards().then(data => setCards([...data]))
-    })
-  }
+    saveToLocal('user', user)
+  }, [user])
 
   return (
-    <AppContainer>
-      <HeaderContainer>
-        <Header>The new Lean Coffee Board!</Header>
-      </HeaderContainer>
-      <Content>
-        {cards.map(({ text, author }) => (
-          <LeanCards text={text} author={author} />
-        ))}
-      </Content>
-      <div>
-        <Form onSubmitClick={handleSubmit} />
-      </div>
-    </AppContainer>
+    error || (
+      <Grid loggedOut={!user}>
+        {user ? (
+          <Board user={user} onLogout={() => setUser(null)} />
+        ) : (
+          <Login onSubmit={createUser} />
+        )}
+      </Grid>
+    )
   )
+
+  function createUser(name) {
+    postUser(name).then(setUser).catch(setError)
+  }
 }
 
-export default App
-
-const AppContainer = styled.div`
-  height: 100vh;
+const Grid = styled.div`
   display: grid;
-  grid-template-rows: 75px auto 70px;
-  margin: 0;
-  background-color: whitesmoke;
-`
-const HeaderContainer = styled.div`
-  display: flex;
+  ${props => props.loggedOut && 'place-items: center'};
+  height: 100vh;
 `
 
-const Content = styled.main`
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  flex-flow: wrap;
-  align-content: flex-start;
-  overflow-y: scroll;
-`
+export default App
