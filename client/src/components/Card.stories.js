@@ -4,13 +4,18 @@ import { action } from '@storybook/addon-actions'
 export default {
   title: 'Card',
   component: Card,
+  argTypes: {
+    authorColor: { control: 'color' },
+  },
 }
 
-export const Primary = () => (
-  <Card
-    authorColor="hotpink"
-    text="This is an example"
-    name="Rick Sanchez"
-    onDelete={action('onDelete')}
-  />
-)
+const Template = args => <Card {...args} />
+
+export const Primary = Template.bind({})
+
+Primary.args = {
+  authorColor: 'hotpink',
+  text: 'This is an example',
+  name: 'Rick Sanchez',
+  onDelete: action('onDelete'),
+}
