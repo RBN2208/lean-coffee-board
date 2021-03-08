@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import Icon from 'supercons'
-import PropTypes from 'prop-types'
 
 export default function Card({
   authorColor = 'hotpink',
@@ -14,7 +14,7 @@ export default function Card({
 
   return (
     <CardStyled authorColor={authorColor}>
-      <div>{name}</div>
+      <Name>{name}</Name>
       {text}
       <IconWrapper>
         <Icon onClick={onDelete} role="button" glyph="delete" size={24} />
@@ -39,13 +39,14 @@ const CardStyled = styled.li`
   border-radius: 4px;
   padding: 20px 20px 10px 20px;
   background: linear-gradient(#eee, #efefef);
-
-  div {
-    text-transform: uppercase;
-    font-size: 0.8em;
-    color: ${props => props.authorColor};
-  }
 `
+
+const Name = styled.div`
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: ${props => props.authorColor};
+`
+
 const IconWrapper = styled.span`
   display: flex;
   justify-content: space-between;
@@ -53,9 +54,7 @@ const IconWrapper = styled.span`
   width: 100%;
 
   svg:hover {
-    height: 28px;
-    width: 28px;
-    fill: red;
+    fill: crimson;
   }
 `
 
