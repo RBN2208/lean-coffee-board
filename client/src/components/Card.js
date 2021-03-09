@@ -13,8 +13,8 @@ export default function Card({
   const voteThreshold = votes > 99 ? '99+' : votes
 
   return (
-    <CardStyled authorColor={authorColor}>
-      <Name>{name}</Name>
+    <CardStyled>
+      <Name authorColor={authorColor}>{name}</Name>
       {text}
       <IconWrapper>
         <Icon onClick={onDelete} role="button" glyph="delete" size={24} />
