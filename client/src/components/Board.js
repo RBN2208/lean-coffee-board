@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import deleteCard from '../services/deleteCard'
 import getCards from '../services/getCards'
 import postCard from '../services/postCard'
+import voteCard from '../services/voteCard'
 import Button from './Button'
 import Card from './Card'
 
@@ -17,15 +18,19 @@ export default function Board({ user, onLogout }) {
     <BoardWrapper>
       <Logout onClick={onLogout} />
       <CardGrid>
-        {cards.map(card => (
-          <Card
-            key={card._id}
-            authorColor={card.author?.color}
-            text={card.text}
-            name={card.author?.name}
-            onDelete={() => handleDelete(card._id)}
-          />
-        ))}
+        {cards
+          .sort((a, b) => b.votes - a.votes)
+          .map((card, index) => (
+            <Card
+              key={card._id}
+              authorColor={card.author?.color}
+              text={card.text}
+              name={card.author?.name}
+              votes={card.votes}
+              onDelete={() => handleDelete(card._id)}
+              onVote={() => handleVote(index)}
+            />
+          ))}
         <Spacer />
       </CardGrid>
       <Form onSubmit={handleSubmit}>
@@ -34,6 +39,23 @@ export default function Board({ user, onLogout }) {
       </Form>
     </BoardWrapper>
   )
+
+  function handleVote(index) {
+    const card = cards[index]
+
+    // optimistic update
+    setCards([
+      ...cards.slice(0, index),
+      { ...card, votes: card.votes + 1 },
+      ...cards.slice(index + 1),
+    ])
+
+    // we use finally here to get the cards in both cases: if the update returned
+    // successfully or with an error:
+    voteCard(card._id).finally(() => {
+      getCards().then(cards => setCards(cards))
+    })
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -75,7 +97,8 @@ const CardGrid = styled.ul`
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 400px));
-  grid-auto-rows: 100px;
+  align-content: start;
+  /* grid-auto-rows: 100px; */
   margin: 0;
   padding: 20px;
   overflow-y: auto;
