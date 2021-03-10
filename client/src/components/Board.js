@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import deleteCard from '../services/deleteCard'
@@ -6,6 +7,14 @@ import postCard from '../services/postCard'
 import voteCard from '../services/voteCard'
 import Button from './Button'
 import Card from './Card'
+
+Board.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    _id: PropTypes.string,
+  }),
+  onLogout: PropTypes.func,
+}
 
 export default function Board({ user, onLogout }) {
   const [cards, setCards] = useState([])

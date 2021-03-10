@@ -2,6 +2,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import Icon from 'supercons'
 
+Card.propTypes = {
+  authorColor: PropTypes.string,
+  text: PropTypes.string,
+  name: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
+  onVote: PropTypes.func.isRequired,
+  votes: PropTypes.number,
+}
+
 export default function Card({
   authorColor = 'hotpink',
   text = <em>No comment</em>,
@@ -17,20 +26,16 @@ export default function Card({
       <Name authorColor={authorColor}>{name}</Name>
       {text}
       <IconWrapper>
-        <Icon onClick={onDelete} role="button" glyph="delete" size={24} />
+        <Icon
+          onClick={() => onDelete?.()}
+          role="button"
+          glyph="delete"
+          size={24}
+        />
         <VoteCircle onClick={onVote}>{votes ? voteThreshold : '+'}</VoteCircle>
       </IconWrapper>
     </CardStyled>
   )
-}
-
-Card.propTypes = {
-  authorColor: PropTypes.string,
-  text: PropTypes.string,
-  name: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
-  onVote: PropTypes.func.isRequired,
-  votes: PropTypes.number,
 }
 
 const CardStyled = styled.li`
