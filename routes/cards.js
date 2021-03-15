@@ -29,7 +29,7 @@ router.delete('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   res.json(
-    await (await Card.create(req.body))
+    await (await Card.create(req.body)) // nested await is needed
       .populate('author')
       .execPopulate()
       .catch(next)
