@@ -34,7 +34,7 @@ export default function Board({ user, onLogout }) {
               key={card._id}
               authorColor={card.author?.color}
               text={card.text}
-              name={card.author?.name}
+              author={card.author?.username}
               votes={card.votes}
               onDelete={() => handleDelete(card._id)}
               onVote={() => handleVote(index)}

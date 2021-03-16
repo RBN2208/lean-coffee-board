@@ -1,0 +1,20 @@
+GET http://localhost:1337/cards
+
+###
+
+GET http://localhost:1337/cards/count
+
+###
+
+POST http://localhost:1337/cards
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5MTg3NiwiZXhwIjoxNjE4NDgzODc2fQ.MmR2zf0Zi_g-GshcNpqy55UX4hqtK_s0zDKEKJyscg8
+
+{
+  "text": "Another card",
+  "author": "6050876b85d4c537dc7df3fe"
+}
+
+
+DELETE http://localhost:1337/cards/6050897930a68838560d7337
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5MTg3NiwiZXhwIjoxNjE4NDgzODc2fQ.MmR2zf0Zi_g-GshcNpqy55UX4hqtK_s0zDKEKJyscg8

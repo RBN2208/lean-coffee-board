@@ -14,7 +14,7 @@ Card.propTypes = {
 export default function Card({
   authorColor = 'hotpink',
   text = <em>No comment</em>,
-  name = 'Anonymous',
+  author = 'Anonymous',
   votes = 0,
   onDelete,
   onVote,
@@ -23,7 +23,7 @@ export default function Card({
 
   return (
     <CardStyled>
-      <Name authorColor={authorColor}>{name}</Name>
+      <Author color={authorColor}>{author}</Author>
       {text}
       <IconWrapper>
         <Icon
@@ -46,10 +46,10 @@ const CardStyled = styled.li`
   background: linear-gradient(#eee, #efefef);
 `
 
-const Name = styled.div`
+const Author = styled.div`
   text-transform: uppercase;
   font-size: 0.8em;
-  color: ${props => props.authorColor};
+  color: ${props => props.color};
 `
 
 const IconWrapper = styled.span`

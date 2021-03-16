@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "cd client && npm run build",
-    "dev": "npm-run-all --parallel server client",
+    "build": "npm-run-all --parallel build:client build:strapi",
+    "build:client": "cd client && npm run build",
+    "build:strapi": "cd strapi && npm run build",
+    "dev": "npm-run-all --parallel server client strapi",
     "server": "nodemon server.js",
     "client": "cd client && npm start",
+    "strapi": "cd strapi && npm run develop",
     "test": "cd client && npm test",
     "storybook": "cd client && npm run storybook",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install && cd ../strapi && npm install"
   },
   "keywords": [],
   "author": "Jeremias Erbs <jerry@badabam.de> (https://badabam.de/)",
