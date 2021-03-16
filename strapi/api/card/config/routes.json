@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "PATCH",
+      "path": "/cards/:id/vote",
+      "handler": "card.vote",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/cards/:id",
       "handler": "card.update",

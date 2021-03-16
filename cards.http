@@ -5,6 +5,9 @@ GET http://localhost:1337/cards
 GET http://localhost:1337/cards/count
 
 ###
+PATCH http://localhost:1337/cards/60508f261144d33aaeecbc6a/vote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5NDA0MywiZXhwIjoxNjE4NDg2MDQzfQ.JdshdjTH8OjxhEwyywR5jvrIKo-MG7wTYehJe9P3QNw
+###
 
 POST http://localhost:1337/cards
 Content-Type: application/json

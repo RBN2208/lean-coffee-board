@@ -18,6 +18,10 @@
     "author": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "votes": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
