@@ -1,25 +1,25 @@
-GET http://localhost:1337/users/
+GET http://localhost:4000/users/
 
 ###
 
-POST http://localhost:1337/auth/local/register
+POST http://localhost:4000/auth/local
 Content-Type: application/json
 
 {
-  "email": "jane@doe.com",
+  "identifier": "john@doe.com",
   "password": "2Hamburg"
 }
 
 ###
 
-DELETE http://localhost:1337/users/60508fd01144d33aaeecbc6b
+DELETE http://localhost:4000/users/60508fd01144d33aaeecbc6b
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4ZmQwMTE0NGQzM2FhZWVjYmM2YiIsImlhdCI6MTYxNTg5MjQzMiwiZXhwIjoxNjE4NDg0NDMyfQ.6z5oCI4sYxzV0uPqwksxHSh-6RQ09dTapD7cZFjDn6Q
 
 
 ###
 
-POST http://localhost:1337/auth/local
+POST http://localhost:4000/auth/local
 Content-Type: application/json
 
 {
