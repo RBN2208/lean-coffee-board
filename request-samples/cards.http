@@ -1,14 +1,14 @@
+### Get all cards
 GET http://localhost:4000/cards
 
-###
-
+### Count cards
 GET http://localhost:4000/cards/count
-###
 
+### Vote on a single card
 PATCH http://localhost:4000/cards/60508f261144d33aaeecbc6a/vote
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5NDA0MywiZXhwIjoxNjE4NDg2MDQzfQ.JdshdjTH8OjxhEwyywR5jvrIKo-MG7wTYehJe9P3QNw
-###
 
+### Create a new Card
 POST http://localhost:4000/cards
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5MTg3NiwiZXhwIjoxNjE4NDgzODc2fQ.MmR2zf0Zi_g-GshcNpqy55UX4hqtK_s0zDKEKJyscg8
@@ -17,7 +17,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiO
   "text": "Another card",
   "author": "6050876b85d4c537dc7df3fe"
 }
-###
 
+### Delete a card
 DELETE http://localhost:4000/cards/6050897930a68838560d7337
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTA4NzZiODVkNGM1MzdkYzdkZjNmZSIsImlhdCI6MTYxNTg5MTg3NiwiZXhwIjoxNjE4NDgzODc2fQ.MmR2zf0Zi_g-GshcNpqy55UX4hqtK_s0zDKEKJyscg8
