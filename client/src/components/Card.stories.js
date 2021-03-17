@@ -16,6 +16,6 @@ export const Primary = Template.bind({})
 Primary.args = {
   authorColor: 'hotpink',
   text: 'This is an example',
-  name: 'Rick Sanchez',
+  author: 'Rick Sanchez',
   onDelete: action('onDelete'),
 }

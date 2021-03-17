@@ -1,3 +1,7 @@
-export default function getCards() {
-  return fetch('/cards').then(res => res.json())
+export default function getCards(token) {
+  return fetch('/cards', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(res => res.json())
 }

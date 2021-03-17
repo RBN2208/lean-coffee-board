@@ -1,25 +1,43 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import getRandomName from '../services/getRandomName'
 import validateUser from '../services/validation'
 import Button from './Button'
 
-export default function Register({ onLogin }) {
+export default function Register({ onRegister }) {
   const [error, setError] = useState(false)
+  const [randomName, setRandomName] = useState('')
   const [user, setUser] = useState({
+    username: '',
     email: '',
     password: '',
   })
 
+  useEffect(() => {
+    getRandomName()
+      .then(setRandomName)
+      .catch(() => {})
+  }, [])
+
   return (
     <Form onSubmit={handleSubmit}>
       <label>
-        Email:
+        Choose a name:
         <input
           onChange={handleChange}
-          value={user.email}
+          value={user.username}
+          name="username"
+          placeholder={randomName}
+        />
+      </label>
+      <label>
+        Your email:
+        <input
+          onChange={handleChange}
           name="email"
           type="email"
-          placeholder="jon@doe.com"
+          value={user.email}
+          placeholder={`${randomName}@coffee.de`}
         />
       </label>
       <label>
@@ -33,7 +51,7 @@ export default function Register({ onLogin }) {
         />
       </label>
       {error && <small>Please fill out the form correctly</small>}
-      <Button>Let's go!</Button>
+      <Button>Register!</Button>
     </Form>
   )
 
@@ -46,7 +64,7 @@ export default function Register({ onLogin }) {
   function handleSubmit(event) {
     event.preventDefault()
     if (validateUser(user)) {
-      onLogin(user)
+      onRegister(user)
     } else {
       setError(true)
     }

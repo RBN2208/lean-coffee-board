@@ -3,21 +3,21 @@ import styled from 'styled-components/macro'
 import Icon from 'supercons'
 
 Card.propTypes = {
+  author: PropTypes.string,
   authorColor: PropTypes.string,
-  text: PropTypes.string,
-  name: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   onVote: PropTypes.func.isRequired,
+  text: PropTypes.string,
   votes: PropTypes.number,
 }
 
 export default function Card({
-  authorColor = 'hotpink',
-  text = <em>No comment</em>,
   author = 'Anonymous',
-  votes = 0,
+  authorColor = 'hotpink',
   onDelete,
   onVote,
+  text = <em>No comment</em>,
+  votes = 0,
 }) {
   const voteThreshold = votes > 99 ? '99+' : votes
 

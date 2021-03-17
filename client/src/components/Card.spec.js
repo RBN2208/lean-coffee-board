@@ -13,7 +13,7 @@ describe('Card', () => {
   it('renders name, text and two buttons', () => {
     render(
       <Card
-        name="Rick"
+        author="Rick"
         text="Example"
         onDelete={deleteCallback}
         onVote={voteCallback}

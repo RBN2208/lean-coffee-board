@@ -10,18 +10,21 @@ import Card from './Card'
 
 Board.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string,
-    _id: PropTypes.string,
+    username: PropTypes.string,
+    token: PropTypes.string,
+    id: PropTypes.string,
   }),
   onLogout: PropTypes.func,
 }
 
-export default function Board({ user, onLogout }) {
+export default function Board({ user, onLogout, onError }) {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
-    getCards().then(data => setCards([...data]))
-  }, [])
+    getCards(user.token)
+      .then(data => setCards([...data]))
+      .catch(onError)
+  }, [user.token, onError])
 
   return (
     <BoardWrapper>
@@ -43,7 +46,11 @@ export default function Board({ user, onLogout }) {
         <Spacer />
       </CardGrid>
       <Form onSubmit={handleSubmit}>
-        <input autoFocus placeholder={`${user.name} says ... `} name="text" />
+        <input
+          autoFocus
+          placeholder={`${user.username} says ... `}
+          name="text"
+        />
         <Button>Add Card</Button>
       </Form>
     </BoardWrapper>
@@ -61,24 +68,25 @@ export default function Board({ user, onLogout }) {
 
     // we use finally here to get the cards in both cases: if the update returned
     // successfully or with an error:
-    voteCard(card._id).finally(() => {
-      getCards().then(cards => setCards(cards))
+    voteCard(card._id, user.token).finally(() => {
+      getCards(user.token).then(cards => setCards(cards))
     })
   }
 
   function handleSubmit(event) {
     event.preventDefault()
+
     const form = event.target
     const { text } = form.elements
-    postCard({ text: text.value, author: user._id }).then(newCard =>
-      setCards([newCard, ...cards])
-    )
+    postCard({ text: text.value, author: user.id }, user.token)
+      .then(newCard => setCards([newCard, ...cards]))
+      .catch(onError)
     form.reset()
     text.focus()
   }
 
   function handleDelete(id) {
-    deleteCard(id).then(() => {
+    deleteCard(id, user.token).then(() => {
       const updatedCards = cards.filter(card => card._id !== id)
       setCards([...updatedCards])
     })
