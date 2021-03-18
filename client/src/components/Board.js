@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import createCard from '../services/createCard'
 import deleteCard from '../services/deleteCard'
 import getCards from '../services/getCards'
-import postCard from '../services/postCard'
 import voteCard from '../services/voteCard'
 import Button from './Button'
 import Card from './Card'
@@ -13,10 +13,11 @@ Board.propTypes = {
     name: PropTypes.string,
     _id: PropTypes.string,
   }),
+  token: PropTypes.string.isRequired,
   onLogout: PropTypes.func,
 }
 
-export default function Board({ user, onLogout }) {
+export default function Board({ user, token, onLogout }) {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Board({ user, onLogout }) {
               key={card._id}
               authorColor={card.author?.color}
               text={card.text}
-              name={card.author?.name}
+              author={card.author?.username}
               votes={card.votes}
               onDelete={() => handleDelete(card._id)}
               onVote={() => handleVote(index)}
@@ -43,7 +44,11 @@ export default function Board({ user, onLogout }) {
         <Spacer />
       </CardGrid>
       <Form onSubmit={handleSubmit}>
-        <input autoFocus placeholder={`${user.name} says ... `} name="text" />
+        <input
+          autoFocus
+          placeholder={`${user.username} says ... `}
+          name="text"
+        />
         <Button>Add Card</Button>
       </Form>
     </BoardWrapper>
@@ -70,7 +75,7 @@ export default function Board({ user, onLogout }) {
     event.preventDefault()
     const form = event.target
     const { text } = form.elements
-    postCard({ text: text.value, author: user._id }).then(newCard =>
+    createCard({ text: text.value, author: user._id }, token).then(newCard =>
       setCards([newCard, ...cards])
     )
     form.reset()

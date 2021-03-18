@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "build": "cd client && npm run build",
-    "dev": "npm-run-all --parallel server client",
-    "server": "nodemon server.js",
-    "client": "cd client && npm start",
+    "dev": "npm-run-all --parallel dev:strapi dev:client",
+    "dev:strapi": "cd strapi && npm run dev",
+    "dev:client": "cd client && npm start",
     "test": "cd client && npm test",
     "storybook": "cd client && npm run storybook",
     "postinstall": "cd client && npm install"

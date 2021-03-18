@@ -10,10 +10,10 @@ describe('Card', () => {
     voteCallback.mockClear()
   })
 
-  it('renders name, text and two buttons', () => {
+  it('renders author, text and two buttons', () => {
     render(
       <Card
-        name="Rick"
+        author="Rick"
         text="Example"
         onDelete={deleteCallback}
         onVote={voteCallback}

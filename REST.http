@@ -45,7 +45,7 @@ POST {{baseUrl}}/auth/local/register
 Content-Type: application/json
 
 {
-  "username": "Jane Doe",
-  "email": "jane@doe.com",
+  "username": "Rick Sanchez",
+  "email": "rick@doe.com",
   "password": "17Hackers"
 }

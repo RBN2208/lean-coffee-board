@@ -1,8 +1,9 @@
-export default function postCard(card) {
-  return fetch('/api/cards', {
+export default function createCard(card, token) {
+  return fetch('/cards', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(card),
   })

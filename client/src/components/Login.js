@@ -3,29 +3,25 @@ import styled from 'styled-components/macro'
 import getRandomName from '../services/getRandomName'
 import Button from './Button'
 
-export default function Login({ onSubmit }) {
-  const [randomName, setRandomName] = useState('')
-
-  useEffect(() => {
-    getRandomName()
-      .then(setRandomName)
-      .catch(() => {})
-  }, [])
-
+export default function Login({ onLogin }) {
   return (
     <Form onSubmit={handleSubmit}>
       <label>
-        Choose a name:
-        <input name="name" placeholder={randomName} />
+        Identifier:
+        <input name="identifier" placeholder="Username or email" />
       </label>
-
+      <label>
+        Password:
+        <input name="password" type="password" placeholder="" />
+      </label>
       <Button>Let's go!</Button>
     </Form>
   )
 
   function handleSubmit(event) {
     event.preventDefault()
-    onSubmit(event.target.elements.name.value || randomName)
+    const { identifier, password } = event.target.elements
+    onLogin({ identifier: identifier.value, password: password.value })
   }
 }
 
