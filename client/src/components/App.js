@@ -4,21 +4,19 @@ import loadFromLocal from '../lib/loadFromLocal'
 import saveToLocal from '../lib/saveToLocal'
 import createUser from '../services/createUser'
 import loginUser from '../services/loginUser'
-import postUser from '../services/loginUser'
 import Board from './Board'
-import Button from './Button'
 import Login from './Login'
 import Register from './Register'
 
 function App() {
-  const [user, setUser] = useState(null)
-  const [token, setToken] = useState(loadFromLocal('jwt'))
+  const [auth, setAuth] = useState(loadFromLocal('auth'))
+  const { user, token } = auth ?? {}
   const [error, setError] = useState(null)
   const [isRegistered, setIsRegistered] = useState(false)
 
   useEffect(() => {
-    saveToLocal('token', token)
-  }, [token])
+    saveToLocal('auth', auth)
+  }, [auth])
 
   return (
     error || (
@@ -43,8 +41,7 @@ function App() {
   )
 
   function handleLogout() {
-    setUser(null)
-    setToken(null)
+    setAuth(null)
   }
 
   function handleRegister(user) {
@@ -56,8 +53,7 @@ function App() {
   }
 
   function setCredentials({ jwt, user }) {
-    setUser(user)
-    setToken(jwt)
+    setAuth({ user, token: jwt })
   }
 }
 

@@ -66,9 +66,11 @@ export default function Board({ user, token, onLogout }) {
 
     // we use finally here to get the cards in both cases: if the update returned
     // successfully or with an error:
-    voteCard(card._id).finally(() => {
-      getCards().then(cards => setCards(cards))
-    })
+    voteCard(card._id, token)
+      .catch(error => console.error(error))
+      .finally(() => {
+        getCards().then(cards => setCards(cards))
+      })
   }
 
   function handleSubmit(event) {

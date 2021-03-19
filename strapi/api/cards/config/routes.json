@@ -41,6 +41,14 @@
       }
     },
     {
+      "method": "PATCH",
+      "path": "/cards/:id/vote",
+      "handler": "cards.vote",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/cards/:id",
       "handler": "cards.delete",

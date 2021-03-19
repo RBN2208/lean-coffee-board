@@ -25,6 +25,11 @@ Authorization: Bearer {{jwtJane}}
   "author": "{{idJane}}"
 }
 
+### Vote card
+PATCH {{baseUrl}}/cards/605330ccca1216722d4c1dcc/vote
+Content-Type: application/json
+Authorization: Bearer {{jwtJane}}
+
 
 # Users
 

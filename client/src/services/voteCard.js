@@ -1,8 +1,9 @@
-export default function voteCard(id) {
-  return fetch(`/api/cards/${id}/vote`, {
+export default function voteCard(id, token) {
+  return fetch(`/cards/${id}/vote`, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
   })
     .then(res => res.json())

@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "cards",
   "info": {
-    "name": "Cards"
+    "name": "Cards",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -17,6 +18,10 @@
     "author": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "votes": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
