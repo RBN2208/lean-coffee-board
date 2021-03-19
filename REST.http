@@ -2,7 +2,7 @@
 @idJohn=605330b8ca1216722d4c1dcb
 @idJane=605334a8ca1216722d4c1dce
 @jwtJohn=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTMzMGI4Y2ExMjE2NzIyZDRjMWRjYiIsImlhdCI6MTYxNjA2NTQ1NiwiZXhwIjoxNjE4NjU3NDU2fQ.3u04J7X_6XSoX-ENcFgSPVnhF_KFB8V72onOilFAC7I
-@jwtJane=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTMzNGE4Y2ExMjE2NzIyZDRjMWRjZSIsImlhdCI6MTYxNjA2NTcwNCwiZXhwIjoxNjE4NjU3NzA0fQ.wm7pS22lkMR89t-IdbavfYs5w_wPCzZrdkfn6t7iMxM
+@jwtJane=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNTMzNGE4Y2ExMjE2NzIyZDRjMWRjZSIsImlhdCI6MTYxNjE0ODAzNSwiZXhwIjoxNjE4NzQwMDM1fQ.9UWf2rcWcw0rA--pS4uhvgxfyoRwhZ65zRkJnUB6q9E
 
 # Cards
 
@@ -21,7 +21,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwtJane}}
 
 {
-  "text": "Hello, this is Jane",
+  "text": "Demo Part 2 started",
   "author": "{{idJane}}"
 }
 
@@ -45,7 +45,7 @@ POST {{baseUrl}}/auth/local/register
 Content-Type: application/json
 
 {
-  "username": "Rick Sanchez",
-  "email": "rick@doe.com",
+  "username": "Summer",
+  "email": "summer@doe.com",
   "password": "17Hackers"
 }
