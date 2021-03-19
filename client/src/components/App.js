@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
-import loadFromLocal from '../lib/loadFromLocal'
-import saveToLocal from '../lib/saveToLocal'
+import useLocalStorage from '../hooks/useLocalStorage'
+import useToggle from '../hooks/useToggle'
 import postUser from '../services/postUser'
 import Board from './Board'
 import Login from './Login'
 
 function App() {
-  const [user, setUser] = useState(loadFromLocal('user'))
   const [error, setError] = useState(null)
-
-  useEffect(() => {
-    saveToLocal('user', user)
-  }, [user])
+  const [user, setUser] = useLocalStorage('user')
+  const [isActive, toggleActive] = useToggle(false)
 
   return (
     error || (
       <Grid loggedOut={!user}>
+        <button onClick={toggleActive}>{isActive ? 'Ho' : 'Hey'}</button>
         {user ? (
           <Board user={user} onLogout={() => setUser(null)} />
         ) : (
