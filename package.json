@@ -1,26 +1,41 @@
 {
-  "name": "lean-coffee-board",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "name": "strapi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
   "scripts": {
-    "build": "cd client && npm run build",
     "dev": "npm-run-all --parallel dev:strapi dev:client",
-    "dev:strapi": "cd strapi && npm run dev",
     "dev:client": "cd client && npm start",
-    "test": "cd client && npm test",
-    "storybook": "cd client && npm run storybook",
+    "dev:strapi": "strapi develop",
+    "start": "strapi start",
+    "build": "npm-run-all --parallel build:client build:strapi",
+    "build:client": "cd client && npm run build",
+    "build:strapi": "strapi build",
+    "strapi": "strapi",
     "postinstall": "cd client && npm install"
   },
-  "keywords": [],
-  "author": "Jeremias Erbs <jerry@badabam.de> (https://badabam.de/)",
-  "license": "ISC",
+  "devDependencies": {},
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.11.18",
-    "nodemon": "^2.0.7",
-    "npm-run-all": "^4.1.5",
-    "prop-types": "^15.7.2"
-  }
+    "npm-run-all": "4.1.5",
+    "strapi": "3.5.3",
+    "strapi-admin": "3.5.3",
+    "strapi-connector-mongoose": "3.5.3",
+    "strapi-plugin-content-manager": "3.5.3",
+    "strapi-plugin-content-type-builder": "3.5.3",
+    "strapi-plugin-email": "3.5.3",
+    "strapi-plugin-upload": "3.5.3",
+    "strapi-plugin-users-permissions": "3.5.3",
+    "strapi-utils": "3.5.3"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "f80938aa-edce-420b-8307-e668ce5c8a1e"
+  },
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "^6.0.0"
+  },
+  "license": "MIT"
 }
