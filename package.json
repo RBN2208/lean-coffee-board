@@ -14,7 +14,7 @@
     "postinstall": "cd client && npm install"
   },
   "keywords": [],
-  "author": "Jeremias Erbs <jerry@badabam.de> (https://badabam.de/)",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
